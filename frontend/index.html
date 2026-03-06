@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Quality Classifier</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+    <h1>AI Code Quality Classification</h1>
+
+    <textarea id="codeInput" placeholder="Paste your Python code here..."></textarea>
+
+    <button onclick="analyzeCode()">Analyze Code</button>
+    <button onclick="loadHistory()">View History</button>
+
+<h2>Analysis History</h2>
+<table id="historyTable" border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Lines</th>
+            <th>Functions</th>
+            <th>Loops</th>
+            <th>Depth</th>
+            <th>Complexity</th>
+            <th>Prediction</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+    <div id="result"></div>
+    <h2>Code Metrics</h2>
+<div id="featuresPanel">
+    <p>Lines of Code: <span id="f_lines"></span></p>
+    <p>Functions: <span id="f_functions"></span></p>
+    <p>Loops: <span id="f_loops"></span></p>
+    <p>Conditionals: <span id="f_conditionals"></span></p>
+    <p>Nested Depth: <span id="f_depth"></span></p>
+    <p>Average Function Length: <span id="f_avg"></span></p>
+    <p>Cyclomatic Complexity: <span id="f_complexity"></span></p>
+</div>
+
+    <canvas id="complexityChart"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
