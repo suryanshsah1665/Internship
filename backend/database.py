@@ -9,7 +9,7 @@ def get_connection():
         port="5433"
     )
 
-def save_analysis(features, prediction):
+def save_analysis(features, prediction, user_id):
     conn = get_connection()
     cur = conn.cursor()
 
