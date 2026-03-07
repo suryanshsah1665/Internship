@@ -13,21 +13,21 @@ def save_analysis(features, prediction):
     conn = get_connection()
     cur = conn.cursor()
 
-    query = """
-    INSERT INTO analyses (
-        lines_of_code,
-        num_functions,
-        num_loops,
-        num_conditionals,
-        nested_loop_depth,
-        avg_function_length,
-        cyclomatic_complexity,
-        predicted_label
-    )
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-    """
-
-    values = (
+    cur.execute("""
+        INSERT INTO analyses (
+            user_id,
+            lines_of_code,
+            num_functions,
+            num_loops,
+            num_conditionals,
+            nested_loop_depth,
+            avg_function_length,
+            cyclomatic_complexity,
+            predicted_label
+        )
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+    """, (
+        user_id,
         features["lines_of_code"],
         features["num_functions"],
         features["num_loops"],
