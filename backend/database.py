@@ -36,9 +36,7 @@ def save_analysis(features, prediction):
         features["avg_function_length"],
         features["cyclomatic_complexity"],
         prediction
-    )
-
-    cur.execute(query, values)
+    ))
 
     conn.commit()
     cur.close()
