@@ -30,6 +30,14 @@ async function analyzeCode() {
 
         const f = data.features;
 
+const panel = document.getElementById("suggestionsPanel");
+panel.innerHTML = "";
+
+suggestions.forEach(s => {
+    const li = document.createElement("li");
+    li.innerText = s;
+    panel.appendChild(li);
+});
         // Feature panel
         document.getElementById("f_lines").innerText = f.lines_of_code;
         document.getElementById("f_functions").innerText = f.num_functions;
