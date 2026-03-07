@@ -29,6 +29,75 @@ async function analyzeCode() {
             "<br>Confidence: " + data.confidence;
 
         const f = data.features;
+        // ----- Code Quality Score -----
+
+let score = 100;
+
+// penalties
+score -= f.cyclomatic_complexity * 2;
+score -= f.num_loops * 1.5;
+score -= f.num_conditionals * 1;
+score -= f.nested_loop_depth * 5;
+
+if (f.avg_function_length > 15) {
+    score -= 10;
+}
+
+if (score < 0) score = 0;
+
+score = Math.round(score);
+
+// status label
+let status = "";
+let color = "";
+
+if (score >= 80) {
+    status = "Good";
+    color = "green";
+}
+else if (score >= 50) {
+    status = "Moderate";
+    color = "orange";
+}
+else {
+    status = "Poor";
+    color = "red";
+}
+
+// display
+document.getElementById("scoreValue").innerText = score + "/100";
+document.getElementById("scoreValue").style.color = color;
+document.getElementById("scoreLabel").innerText = status;
+        // -------- AI Suggestions --------
+const suggestions = [];
+
+if (f.cyclomatic_complexity > 15) {
+    suggestions.push("High cyclomatic complexity detected. Consider simplifying logic or splitting functions.");
+}
+
+if (f.nested_loop_depth >= 2) {
+    suggestions.push("Nested loops detected. Try reducing nesting by using helper functions or early returns.");
+}
+
+if (f.num_loops > 5) {
+    suggestions.push("Many loops found. Check if some loops can be optimized or combined.");
+}
+
+if (f.avg_function_length > 20) {
+    suggestions.push("Functions appear long. Consider breaking them into smaller reusable functions.");
+}
+
+if (f.num_conditionals > 8) {
+    suggestions.push("Large number of conditionals. Consider using polymorphism, dictionaries, or strategy patterns.");
+}
+
+if (f.num_functions === 0) {
+    suggestions.push("No functions detected. Consider organizing logic into reusable functions.");
+}
+
+if (suggestions.length === 0) {
+    suggestions.push("Code structure looks good. No major complexity issues detected.");
+}
 
 const panel = document.getElementById("suggestionsPanel");
 panel.innerHTML = "";
