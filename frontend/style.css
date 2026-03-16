@@ -1,71 +1,68 @@
 body {
-    font-family: Arial;
-    margin: 40px;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
 }
 
 textarea {
     width: 100%;
-    height: 200px;
+    max-width: 900px;
+    height: 260px;
+    padding: 12px;
+    font-size: 16px;
     margin-bottom: 15px;
-    padding: 10px;
+    border: 1px solid #999;
+    box-sizing: border-box;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 18px;
+    margin-right: 10px;
+    margin-bottom: 15px;
     cursor: pointer;
 }
 
-#result {
-    margin-top: 20px;
-    font-size: 18px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+canvas {
+    max-width: 900px;
+    margin-top: 10px;
+}
+
+.card {
+    background: #f4f4f4;
+    color: #000000;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-width: 900px;
+}
+
+#scoreValue {
+    font-size: 32px;
     font-weight: bold;
 }
-#featuresPanel {
-    background: #f4f4f4;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 6px;
-    width: 400px;
+
+#scoreLabel {
+    margin-top: 8px;
+    font-size: 18px;
 }
 
-#featuresPanel p {
-    margin: 5px 0;
-    font-weight: 500;
-}
 #suggestionsPanel {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 6px;
-    width: 500px;
-}
-
-#suggestionsPanel li {
-    margin: 6px 0;
-}
-#scoreContainer{
-    margin-top:10px;
-    padding:15px;
-    width:250px;
-    border-radius:8px;
-    background:#f4f4f4;
-}
-
-#scoreValue{
-    font-size:32px;
-    font-weight:bold;
-}
-
-#scoreLabel{
-    font-size:16px;
-    margin-top:5px;
-}
-/* default light theme */
-body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: Arial, sans-serif;
+    padding-left: 30px;
 }
 
 /* dark theme */
@@ -74,33 +71,37 @@ body.dark {
     color: #e4e4e4;
 }
 
-/* textarea */
 body.dark textarea {
     background-color: #1e1e1e;
     color: #ffffff;
     border: 1px solid #444;
 }
 
-/* buttons */
 body.dark button {
     background-color: #333;
     color: #fff;
     border: 1px solid #555;
 }
 
-/* tables */
 body.dark table {
     background-color: #1e1e1e;
-    color: white;
+    color: #e4e4e4;
 }
 
-/* suggestion panel */
-body.dark .suggestions-box {
-    background-color: #1e1e1e;
+body.dark th,
+body.dark td {
     border: 1px solid #444;
 }
 
-/* metrics panel */
-body.dark .metrics-panel {
+body.dark .card {
     background-color: #1e1e1e;
+    color: #e4e4e4;
+    border: 1px solid #444;
+}
+
+body.dark #featuresPanel p,
+body.dark #featuresPanel span,
+body.dark #suggestionsPanel li,
+body.dark #scoreContainer div {
+    color: #e4e4e4;
 }
