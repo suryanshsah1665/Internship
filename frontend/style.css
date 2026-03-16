@@ -9,44 +9,57 @@ body {
     background: #f4f6f8;
     color: #1f2937;
     padding: 20px;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
     max-width: 1250px;
-    margin: auto;
+    margin: 0 auto;
 }
 
+/* Top Header */
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    gap: 20px;
 }
 
 .topbar h1 {
     font-size: 2.2rem;
+    font-weight: 700;
 }
 
+/* Theme Button */
 #themeToggle {
     padding: 10px 16px;
     border: none;
     border-radius: 10px;
     background: #111827;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
+#themeToggle:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Cards */
 .editor-card,
 .result-card,
 .card,
 .history-card {
-    background: white;
+    background: #ffffff;
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .editor-card h2,
@@ -55,8 +68,10 @@ body {
 .history-card h2 {
     margin-bottom: 16px;
     font-size: 1.4rem;
+    font-weight: 700;
 }
 
+/* Textarea */
 #codeInput {
     width: 100%;
     min-height: 320px;
@@ -64,18 +79,25 @@ body {
     border-radius: 12px;
     padding: 16px;
     font-size: 15px;
+    font-family: Consolas, monospace;
     resize: vertical;
     outline: none;
+    background: #ffffff;
+    color: #111827;
+    transition: all 0.3s ease;
 }
 
 #codeInput:focus {
     border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+/* Buttons */
 .action-buttons {
     display: flex;
     gap: 12px;
     margin-top: 16px;
+    flex-wrap: wrap;
 }
 
 .action-buttons button {
@@ -83,22 +105,31 @@ body {
     border: none;
     border-radius: 10px;
     background: #2563eb;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     font-size: 15px;
     font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.action-buttons button:hover {
+    transform: translateY(-1px);
+    opacity: 0.95;
 }
 
 .action-buttons button:last-child {
     background: #374151;
 }
 
+/* Prediction result */
 #result {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.15rem;
+    font-weight: 600;
     line-height: 1.8;
+    min-height: 50px;
 }
 
+/* Dashboard grid */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -109,11 +140,18 @@ body {
     grid-column: span 2;
 }
 
+/* Metrics */
 #featuresPanel p {
     margin-bottom: 10px;
     font-size: 1.05rem;
+    line-height: 1.6;
 }
 
+#featuresPanel span {
+    font-weight: 700;
+}
+
+/* Score */
 #scoreContainer {
     text-align: center;
     padding: 20px 0;
@@ -121,20 +159,34 @@ body {
 
 #scoreValue {
     font-size: 3rem;
-    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 #scoreLabel {
-    margin-top: 10px;
     font-size: 1.2rem;
     font-weight: 600;
 }
 
+/* Suggestions */
 #suggestionsPanel {
     padding-left: 20px;
     line-height: 1.8;
 }
 
+#suggestionsPanel li {
+    margin-bottom: 8px;
+}
+
+/* Chart canvas */
+canvas {
+    width: 100% !important;
+    max-width: 100%;
+    background: transparent;
+    border-radius: 12px;
+}
+
+/* History table */
 .table-wrapper {
     overflow-x: auto;
 }
@@ -143,21 +195,29 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 #historyTable th,
 #historyTable td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e5e7eb;
     text-align: center;
+    font-size: 14px;
 }
 
 #historyTable th {
     background: #2563eb;
-    color: white;
+    color: #ffffff;
+    font-weight: 700;
 }
 
-/* Dark theme */
+#historyTable tr:hover td {
+    background: #f9fafb;
+}
+
+/* Dark Theme */
 body.dark {
     background: #0b1120;
     color: #f3f4f6;
@@ -169,17 +229,31 @@ body.dark .card,
 body.dark .history-card {
     background: #111827;
     color: #f3f4f6;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 body.dark #codeInput {
     background: #1f2937;
-    color: white;
+    color: #f9fafb;
     border: 1px solid #374151;
+}
+
+body.dark #codeInput:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
 }
 
 body.dark #themeToggle {
     background: #f9fafb;
     color: #111827;
+}
+
+body.dark .action-buttons button:first-child {
+    background: #3b82f6;
+}
+
+body.dark .action-buttons button:last-child {
+    background: #4b5563;
 }
 
 body.dark #historyTable th {
@@ -190,6 +264,23 @@ body.dark #historyTable td {
     border-bottom: 1px solid #374151;
 }
 
+body.dark #historyTable tr:hover td {
+    background: #1f2937;
+}
+
+body.dark #featuresPanel span,
+body.dark #scoreValue,
+body.dark #scoreLabel,
+body.dark #result,
+body.dark #suggestionsPanel li,
+body.dark .card h2,
+body.dark .result-card h2,
+body.dark .editor-card h2,
+body.dark .history-card h2 {
+    color: #f3f4f6;
+}
+
+/* Responsive */
 @media (max-width: 900px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
@@ -202,6 +293,39 @@ body.dark #historyTable td {
     .topbar {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+    }
+
+    .topbar h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 14px;
+    }
+
+    .editor-card,
+    .result-card,
+    .card,
+    .history-card {
+        padding: 16px;
+    }
+
+    #codeInput {
+        min-height: 240px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-buttons button {
+        width: 100%;
+    }
+
+    #scoreValue {
+        font-size: 2.4rem;
     }
 }
