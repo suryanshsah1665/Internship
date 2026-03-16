@@ -1,133 +1,207 @@
-body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    position: relative;
-}
-
-h1, h2 {
-    margin-bottom: 10px;
-}
-
-textarea {
-    width: 100%;
-    max-width: 900px;
-    height: 260px;
-    padding: 12px;
-    font-size: 16px;
-    margin-bottom: 15px;
-    border: 1px solid #999;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-button {
-    padding: 10px 18px;
-    margin-right: 10px;
-    margin-bottom: 15px;
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #1f2937;
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.topbar h1 {
+    font-size: 2.2rem;
+}
+
+#themeToggle {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
     cursor: pointer;
+    font-size: 15px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-
-canvas {
-    max-width: 900px;
-    margin-top: 10px;
-}
-
-.card {
-    background: #f4f4f4;
-    color: #000000;
-    padding: 15px;
-    border-radius: 8px;
+.editor-card,
+.result-card,
+.card,
+.history-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
     margin-bottom: 20px;
-    max-width: 900px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.editor-card h2,
+.result-card h2,
+.card h2,
+.history-card h2 {
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+}
+
+#codeInput {
+    width: 100%;
+    min-height: 320px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 15px;
+    resize: vertical;
+    outline: none;
+}
+
+#codeInput:focus {
+    border-color: #2563eb;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.action-buttons button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.action-buttons button:last-child {
+    background: #374151;
+}
+
+#result {
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.8;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+#featuresPanel p {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+#scoreContainer {
+    text-align: center;
+    padding: 20px 0;
 }
 
 #scoreValue {
-    font-size: 32px;
+    font-size: 3rem;
     font-weight: bold;
 }
 
 #scoreLabel {
-    margin-top: 8px;
-    font-size: 18px;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 #suggestionsPanel {
-    padding-left: 30px;
+    padding-left: 20px;
+    line-height: 1.8;
 }
 
-/* dark theme */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+#historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#historyTable th,
+#historyTable td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#historyTable th {
+    background: #2563eb;
+    color: white;
+}
+
+/* Dark theme */
 body.dark {
-    background-color: #121212;
-    color: #e4e4e4;
+    background: #0b1120;
+    color: #f3f4f6;
 }
 
-body.dark textarea {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    border: 1px solid #444;
+body.dark .editor-card,
+body.dark .result-card,
+body.dark .card,
+body.dark .history-card {
+    background: #111827;
+    color: #f3f4f6;
 }
 
-body.dark button {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
+body.dark #codeInput {
+    background: #1f2937;
+    color: white;
+    border: 1px solid #374151;
 }
 
-body.dark table {
-    background-color: #1e1e1e;
-    color: #e4e4e4;
+body.dark #themeToggle {
+    background: #f9fafb;
+    color: #111827;
 }
 
-body.dark th,
-body.dark td {
-    border: 1px solid #444;
+body.dark #historyTable th {
+    background: #1d4ed8;
 }
 
-body.dark .card {
-    background-color: #1e1e1e;
-    color: #e4e4e4;
-    border: 1px solid #444;
+body.dark #historyTable td {
+    border-bottom: 1px solid #374151;
 }
 
-body.dark #featuresPanel p,
-body.dark #featuresPanel span,
-body.dark #suggestionsPanel li,
-body.dark #scoreContainer div {
-    color: #e4e4e4;
-}
-#themeToggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 
-    padding: 10px 16px;
-    border: 1px solid #666;
-    border-radius: 8px;
-    cursor: pointer;
-}
-.action-buttons {
-    margin-top: 15px;
-    display: flex;
-    gap: 14px;
-    align-items: center;
-}
+    .full-width {
+        grid-column: span 1;
+    }
 
-.action-buttons button {
-    padding: 10px 18px;
-    border: 1px solid #666;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
 }
