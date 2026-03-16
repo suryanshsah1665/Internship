@@ -17,6 +17,8 @@
 
 <h2>Analysis History</h2>
 <table id="historyTable" border="1">
+    <h2>Quality Score Trend</h2>
+<canvas id="trendChart"></canvas>
     <thead>
         <tr>
             <th>ID</th>
@@ -43,6 +45,16 @@
     <p>Average Function Length: <span id="f_avg"></span></p>
     <p>Cyclomatic Complexity: <span id="f_complexity"></span></p>
 </div>
+    <h2>Code Quality Score</h2>
+
+<div id="scoreContainer">
+    <div id="scoreValue">--</div>
+    <div id="scoreLabel"></div>
+</div>
+    <h2>AI Suggestions</h2>
+<ul id="suggestionsPanel">
+    <li>No suggestions yet. Analyze code to see recommendations.</li>
+</ul>
 
     <canvas id="complexityChart"></canvas>
     <script src="script.js"></script>

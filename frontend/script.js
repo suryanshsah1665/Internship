@@ -1,18 +1,29 @@
 let complexityChart = null;
-
+let trendChart = null;
 async function analyzeCode() {
 
     const code = document.getElementById("codeInput").value;
 
     try {
 
-        const response = await fetch("http://127.0.0.1:5000/analyze", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ code: code })
-        });
+        // get or create user id
+let userId = localStorage.getItem("user_id");
+
+if (!userId) {
+    userId = "user_" + Math.random().toString(36).substring(2,10);
+    localStorage.setItem("user_id", userId);
+}
+
+const response = await fetch("http://127.0.0.1:5000/analyze", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        code: code,
+        user_id: userId
+    })
+});
 
         const data = await response.json();
 
@@ -71,32 +82,43 @@ document.getElementById("scoreLabel").innerText = status;
         // -------- AI Suggestions --------
 const suggestions = [];
 
-if (f.cyclomatic_complexity > 15) {
-    suggestions.push("High cyclomatic complexity detected. Consider simplifying logic or splitting functions.");
+// complexity based suggestions
+if (f.cyclomatic_complexity > 20) {
+    suggestions.push("Refactor large decision logic into smaller functions.");
 }
 
 if (f.nested_loop_depth >= 2) {
-    suggestions.push("Nested loops detected. Try reducing nesting by using helper functions or early returns.");
+    suggestions.push("Reduce nested loops by using helper functions or early exits.");
 }
 
 if (f.num_loops > 5) {
-    suggestions.push("Many loops found. Check if some loops can be optimized or combined.");
-}
-
-if (f.avg_function_length > 20) {
-    suggestions.push("Functions appear long. Consider breaking them into smaller reusable functions.");
+    suggestions.push("Consider replacing some loops with list comprehensions or built-in functions.");
 }
 
 if (f.num_conditionals > 8) {
-    suggestions.push("Large number of conditionals. Consider using polymorphism, dictionaries, or strategy patterns.");
+    suggestions.push("Too many conditionals detected. Consider using dictionaries, strategy pattern, or polymorphism.");
 }
 
-if (f.num_functions === 0) {
-    suggestions.push("No functions detected. Consider organizing logic into reusable functions.");
+// structure suggestions
+if (f.avg_function_length > 20) {
+    suggestions.push("Split large functions into smaller reusable functions.");
+}
+
+if (f.num_functions > 10) {
+    suggestions.push("Large number of functions detected. Consider grouping related logic into classes.");
+}
+
+if (f.lines_of_code > 300) {
+    suggestions.push("File is large. Consider modularizing code into multiple files.");
+}
+
+// optimization suggestions
+if (f.cyclomatic_complexity > 15 && f.num_loops > 3) {
+    suggestions.push("High complexity and loops detected. Look for algorithmic simplifications.");
 }
 
 if (suggestions.length === 0) {
-    suggestions.push("Code structure looks good. No major complexity issues detected.");
+    suggestions.push("Code structure looks clean. No major refactoring required.");
 }
 
 const panel = document.getElementById("suggestionsPanel");
@@ -175,8 +197,68 @@ async function loadHistory() {
 
     try {
 
-        const response = await fetch("http://127.0.0.1:5000/history");
+        let userId = localStorage.getItem("user_id");
+
+        if (!userId) {
+            userId = "user_" + Math.random().toString(36).substring(2,10);
+            localStorage.setItem("user_id", userId);
+        }
+
+        const response = await fetch(
+            "http://127.0.0.1:5000/history?user_id=" + userId
+        );
+
         const data = await response.json();
+        const scores = [];
+const labels = [];
+
+data.forEach((item, index) => {
+
+    // compute score same way as analyzeCode()
+    let score = 100;
+
+    score -= item.cyclomatic_complexity * 2;
+    score -= item.num_loops * 1.5;
+    score -= item.num_conditionals * 1;
+    score -= item.nested_loop_depth * 5;
+
+    if (score < 0) score = 0;
+
+    scores.push(Math.round(score));
+    labels.push("Run " + (index + 1));
+
+});
+const ctx = document.getElementById("trendChart");
+
+if (ctx) {
+
+    if (trendChart) {
+        trendChart.destroy();
+    }
+
+    trendChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Code Quality Score",
+                data: scores,
+                fill: false,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+
+}
 
         const tableBody = document.querySelector("#historyTable tbody");
         tableBody.innerHTML = "";
@@ -205,11 +287,19 @@ async function loadHistory() {
         console.error("History load error:", error);
 
     }
-
 }
-let userId = localStorage.getItem("user_id");
+const toggleBtn = document.getElementById("themeToggle");
 
-if (!userId) {
-    userId = "user_" + Math.random().toString(36).substring(2,10);
-    localStorage.setItem("user_id", userId);
-}
+toggleBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        toggleBtn.innerText = "☀ Light Mode";
+        localStorage.setItem("theme","dark");
+    } else {
+        toggleBtn.innerText = "🌙 Dark Mode";
+        localStorage.setItem("theme","light");
+    }
+
+});

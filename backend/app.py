@@ -22,9 +22,8 @@ def analyze_code():
 
     try:
         data = request.get_json()
-        print("Received data:", data)
-
-        code_text = data["code"]
+        code_text = data.get("code")
+        user_id = data.get("user_id", "default_user")
 
         print("Extracting features...")
         features = extract_features(code_text)
@@ -35,7 +34,7 @@ def analyze_code():
         print("Prediction:", prediction, confidence)
 
         # 🔹 Save result to database
-        save_analysis(features, prediction)
+        save_analysis(features, prediction, user_id)
 
         response = {
             "features": features,
@@ -56,6 +55,7 @@ def get_history():
     try:
         conn = get_connection()
         cur = conn.cursor()
+        data = request.args.get("user_id")
 
         cur.execute("""
                     SELECT id,
@@ -69,8 +69,10 @@ def get_history():
                            predicted_label,
                            created_at
                     FROM analyses
+                    WHERE user_id = %s
                     ORDER BY created_at DESC
-                    """)
+                    """, (data,))
+
 
         rows = cur.fetchall()
 

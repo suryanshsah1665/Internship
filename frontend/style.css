@@ -34,3 +34,73 @@ button {
     margin: 5px 0;
     font-weight: 500;
 }
+#suggestionsPanel {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    width: 500px;
+}
+
+#suggestionsPanel li {
+    margin: 6px 0;
+}
+#scoreContainer{
+    margin-top:10px;
+    padding:15px;
+    width:250px;
+    border-radius:8px;
+    background:#f4f4f4;
+}
+
+#scoreValue{
+    font-size:32px;
+    font-weight:bold;
+}
+
+#scoreLabel{
+    font-size:16px;
+    margin-top:5px;
+}
+/* default light theme */
+body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+/* dark theme */
+body.dark {
+    background-color: #121212;
+    color: #e4e4e4;
+}
+
+/* textarea */
+body.dark textarea {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+/* buttons */
+body.dark button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* tables */
+body.dark table {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+/* suggestion panel */
+body.dark .suggestions-box {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+}
+
+/* metrics panel */
+body.dark .metrics-panel {
+    background-color: #1e1e1e;
+}
