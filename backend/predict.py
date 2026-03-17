@@ -4,7 +4,9 @@ import os
 import pandas as pd
 import joblib
 
-MODEL_PATH = "../models/code_quality_model.pkl"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "models", "code_quality_model.pkl")
+
 
 model, label_encoder = joblib.load(MODEL_PATH)
 
