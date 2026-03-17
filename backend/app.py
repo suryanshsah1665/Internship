@@ -5,7 +5,7 @@ from database import save_analysis, get_connection
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 # -------------------------------
 # Health Check Route
 # -------------------------------
